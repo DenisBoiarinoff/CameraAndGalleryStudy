@@ -10,7 +10,7 @@
             <connections>
                 <outlet property="addPhotoBtn" destination="cvH-cT-45E" id="SnO-Jf-JDt"/>
                 <outlet property="addVireoBtn" destination="S7i-iv-Zk1" id="NE7-Du-WrN"/>
-                <outlet property="imgView" destination="mUX-WS-9Qi" id="0Tl-oW-XhI"/>
+                <outlet property="collectionView" destination="Z2f-2F-8EC" id="Fa3-gL-FHo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -46,14 +46,6 @@
                                 <action selector="addVideoBtn:" destination="-1" eventType="touchUpInside" id="Zk4-Km-dmL"/>
                             </connections>
                         </button>
-                        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jOd-cS-efS">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                            <color key="backgroundColor" red="0.64877288510101017" green="0.45336820251759424" blue="0.37925323499054825" alpha="1" colorSpace="calibratedRGB"/>
-                            <items>
-                                <barButtonItem title="Add Photo" id="DE5-2K-vTC"/>
-                                <barButtonItem title="Add Video" id="ekq-ae-SNe"/>
-                            </items>
-                        </toolbar>
                     </subviews>
                     <color key="backgroundColor" red="0.64877288510101017" green="0.45336820251759424" blue="0.37925323499054825" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
@@ -64,24 +56,30 @@
                         <constraint firstAttribute="trailing" secondItem="S7i-iv-Zk1" secondAttribute="trailing" constant="20" id="lAh-tt-iZE"/>
                         <constraint firstAttribute="bottom" secondItem="cvH-cT-45E" secondAttribute="bottom" constant="10" id="sIj-aP-eSt"/>
                     </constraints>
-                    <variation key="default">
-                        <mask key="subviews">
-                            <exclude reference="jOd-cS-efS"/>
-                        </mask>
-                    </variation>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mUX-WS-9Qi">
-                    <rect key="frame" x="10" y="130" width="580" height="460"/>
-                </imageView>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Z2f-2F-8EC">
+                    <rect key="frame" x="0.0" y="120" width="600" height="480"/>
+                    <color key="backgroundColor" red="0.93375172118673011" green="0.94359611742424254" blue="0.57139348285595093" alpha="1" colorSpace="calibratedRGB"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HcC-z5-fXj">
+                        <size key="itemSize" width="150" height="150"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="6ID-Yd-oDC"/>
+                        <outlet property="delegate" destination="-1" id="f1o-Qn-OHQ"/>
+                    </connections>
+                </collectionView>
             </subviews>
             <color key="backgroundColor" red="1" green="0.94735559630837807" blue="0.60828875462998466" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="mUX-WS-9Qi" secondAttribute="trailing" constant="10" id="518-B2-tet"/>
-                <constraint firstAttribute="bottom" secondItem="mUX-WS-9Qi" secondAttribute="bottom" constant="10" id="6ZS-TW-350"/>
+                <constraint firstAttribute="bottom" secondItem="Z2f-2F-8EC" secondAttribute="bottom" id="BlB-6g-8nE"/>
+                <constraint firstItem="Z2f-2F-8EC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="EXA-Ov-XR4"/>
                 <constraint firstItem="sNs-QS-Oqc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="K80-0x-Hqx"/>
-                <constraint firstItem="mUX-WS-9Qi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="VJr-C7-m5O"/>
+                <constraint firstAttribute="trailing" secondItem="Z2f-2F-8EC" secondAttribute="trailing" id="XQe-ph-o4p"/>
+                <constraint firstItem="Z2f-2F-8EC" firstAttribute="top" secondItem="sNs-QS-Oqc" secondAttribute="bottom" id="aSN-Kf-icd"/>
                 <constraint firstAttribute="trailing" secondItem="sNs-QS-Oqc" secondAttribute="trailing" id="avj-NN-EfL"/>
-                <constraint firstItem="mUX-WS-9Qi" firstAttribute="top" secondItem="sNs-QS-Oqc" secondAttribute="bottom" constant="10" id="n49-lm-zXv"/>
                 <constraint firstItem="sNs-QS-Oqc" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="1:5" id="scX-mI-7HD"/>
                 <constraint firstItem="sNs-QS-Oqc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="wD5-Xy-zU0"/>
             </constraints>

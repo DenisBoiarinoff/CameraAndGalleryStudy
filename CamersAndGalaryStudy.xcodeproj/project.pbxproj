@@ -15,6 +15,9 @@
 		59EFCC9A1D0A711E00A11C7B /* CamersAndGalaryStudyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 59EFCC991D0A711E00A11C7B /* CamersAndGalaryStudyTests.m */; };
 		59EFCCA71D0A71CE00A11C7B /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59EFCCA51D0A71CE00A11C7B /* MainViewController.m */; };
 		59EFCCA81D0A71CE00A11C7B /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59EFCCA61D0A71CE00A11C7B /* MainViewController.xib */; };
+		59EFCCAF1D0ABEB800A11C7B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59EFCCAE1D0ABEB800A11C7B /* MediaPlayer.framework */; };
+		59EFCCB21D0AD93C00A11C7B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59EFCCB01D0AD93B00A11C7B /* AVFoundation.framework */; };
+		59EFCCB31D0AD93C00A11C7B /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59EFCCB11D0AD93B00A11C7B /* AVKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +45,9 @@
 		59EFCCA41D0A71CE00A11C7B /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		59EFCCA51D0A71CE00A11C7B /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		59EFCCA61D0A71CE00A11C7B /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		59EFCCAE1D0ABEB800A11C7B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		59EFCCB01D0AD93B00A11C7B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		59EFCCB11D0AD93B00A11C7B /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +55,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59EFCCB21D0AD93C00A11C7B /* AVFoundation.framework in Frameworks */,
+				59EFCCB31D0AD93C00A11C7B /* AVKit.framework in Frameworks */,
+				59EFCCAF1D0ABEB800A11C7B /* MediaPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +74,9 @@
 		59EFCC701D0A711D00A11C7B = {
 			isa = PBXGroup;
 			children = (
+				59EFCCB01D0AD93B00A11C7B /* AVFoundation.framework */,
+				59EFCCB11D0AD93B00A11C7B /* AVKit.framework */,
+				59EFCCAE1D0ABEB800A11C7B /* MediaPlayer.framework */,
 				59EFCC7B1D0A711E00A11C7B /* CamersAndGalaryStudy */,
 				59EFCC981D0A711E00A11C7B /* CamersAndGalaryStudyTests */,
 				59EFCC7A1D0A711D00A11C7B /* Products */,
