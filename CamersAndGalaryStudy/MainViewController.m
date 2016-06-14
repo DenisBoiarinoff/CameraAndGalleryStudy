@@ -7,6 +7,9 @@
 //
 
 #import "MainViewController.h"
+#import "GalleryCollectionViewCell.h"
+#import "UIImage+isFromVideo.h"
+
 #import <MobileCoreServices/UTCoreTypes.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
@@ -23,13 +26,16 @@
 @implementation MainViewController
 
 static NSString * const reuseIdentifier = @"Cell";
+static NSString * const playIconUrl = @"Play_Icon";
+static NSString * const collectionCellNibName = @"GalleryCollectionViewCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
 	self.dataArray = [[NSMutableArray alloc] init];
 
-	[self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+//	[self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+	[self.collectionView registerClass:[GalleryCollectionViewCell class] forCellWithReuseIdentifier:collectionCellNibName];
 
     // Do any additional setup after loading the view from its nib.
 }
@@ -137,6 +143,21 @@ static NSString * const reuseIdentifier = @"Cell";
 
 }
 
+-(UIImage *)drawBadgeOnImage:(UIImage*)videoImage
+{
+	UIImage *badge =  [UIImage imageNamed:playIconUrl];
+
+	UIGraphicsBeginImageContextWithOptions(videoImage.size, NO, 0.0f);
+	[videoImage drawInRect:CGRectMake(0, 0, videoImage.size.width, videoImage.size.height)];
+	[badge drawInRect:CGRectMake((videoImage.size.width - badge.size.width * 2)/2,
+								 (videoImage.size.height - badge.size.height * 2)/2,
+								 badge.size.width * 2,
+								 badge.size.height * 2)];
+	UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	return resultImage;
+}
+
 #pragma mark - ImagePickerController Delegate
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -146,26 +167,34 @@ static NSString * const reuseIdentifier = @"Cell";
 	if ([type isEqualToString:(NSString *)kUTTypeVideo]
 		|| [type isEqualToString:(NSString *)kUTTypeMovie]) {
 		NSURL *urlvideo = [info objectForKey:UIImagePickerControllerMediaURL];
-		NSLog(@"%@",urlvideo);
+//		NSLog(@"%@",urlvideo);
+
+//		NSData *data = [NSData dataWithContentsOfURL:urlvideo];
+//		AVAudioPlayer* theAudio = [[AVAudioPlayer alloc] initWithData:data error: nil];
 
 		AVAsset *asset = [AVAsset assetWithURL:urlvideo];
 		AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc]initWithAsset:asset];
 		CMTime time = CMTimeMake(1, 1);
+
 		CGImageRef imageRef = [imageGenerator copyCGImageAtTime:time actualTime:NULL error:NULL];
 		UIImage *thumbnail1 = [UIImage imageWithCGImage:imageRef];
 		CGImageRelease(imageRef);
+
+		thumbnail1.source = @"video";
+//		thumbnail1 = [self drawBadgeOnImage:thumbnail1];
 
 		[self.dataArray addObject:thumbnail1];
 		[self.collectionView reloadData];
 		[self dismissViewControllerAnimated:YES completion:nil];
 	} else {
-		  [self dismissViewControllerAnimated:YES completion:nil];
+		[self dismissViewControllerAnimated:YES completion:nil];
 
-		  UIImage *newImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-		  [self.dataArray addObject:newImage];
+		UIImage *newImage = [info objectForKey:UIImagePickerControllerOriginalImage];
 
-		  NSLog(@"%ld", [self.dataArray count]);
-		  [self.collectionView reloadData];
+		[self.dataArray addObject:newImage];
+
+//		  NSLog(@"%ld", [self.dataArray count]);
+		[self.collectionView reloadData];
 
 	}
 
@@ -179,21 +208,23 @@ static NSString * const reuseIdentifier = @"Cell";
 
 # pragma mark - Popover Presentation Controller Delegate
 
-- (void)popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverPresentationController {
-
+- (void)popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverPresentationController
+{
 	// called when a Popover is dismissed
 	NSLog(@"Popover was dismissed with external tap. Have a nice day!");
 }
 
-- (BOOL)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverPresentationController {
-
+- (BOOL)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverPresentationController
+{
 	// return YES if the Popover should be dismissed
 	// return NO if the Popover should not be dismissed
 	return YES;
 }
 
-- (void)popoverPresentationController:(UIPopoverPresentationController *)popoverPresentationController willRepositionPopoverToRect:(inout CGRect *)rect inView:(inout UIView *__autoreleasing  _Nonnull *)view {
-
+- (void)popoverPresentationController:(UIPopoverPresentationController *)popoverPresentationController
+		  willRepositionPopoverToRect:(inout CGRect *)rect
+							   inView:(inout UIView *__autoreleasing  _Nonnull *)view
+{
 	// called when the Popover changes positon
 }
 
@@ -204,20 +235,29 @@ static NSString * const reuseIdentifier = @"Cell";
 	NSLog(@"Cell clicked");
 }
 
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
 	return 1;
 }
 
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
 	return [self.dataArray count];
-
 }
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-
-	UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+	GalleryCollectionViewCell *cell = (GalleryCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:collectionCellNibName forIndexPath:indexPath];
+	UIImage *img = [self.dataArray objectAtIndex:indexPath.row];
 	[cell setBackgroundView:[[UIImageView alloc] initWithImage:[self.dataArray objectAtIndex:indexPath.row]]];
-	NSLog(@"Cell");
+//	[cell.badge setImage:[UIImage imageNamed:playIconUrl]];
+//	NSLog(@"Source: %@", img.source);
+	if (![img.source isEqualToString:@"video"]) {
+		[cell.badge setHidden:YES];
+	} else {
+		[cell.badge setHidden:NO];
+	}
+//	NSLog(@" %@",[cell class]);
 
 	// Return the cell
 	return cell;

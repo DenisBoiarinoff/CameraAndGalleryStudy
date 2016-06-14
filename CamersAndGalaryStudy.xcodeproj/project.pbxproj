@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5953A7B71D0FEF81003AAA02 /* GalleryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5953A7B51D0FEF81003AAA02 /* GalleryCollectionViewCell.m */; };
+		5953A7B81D0FEF81003AAA02 /* GalleryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5953A7B61D0FEF81003AAA02 /* GalleryCollectionViewCell.xib */; };
+		5953A7BE1D0FF87C003AAA02 /* UIImage+isFromVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5953A7BD1D0FF87C003AAA02 /* UIImage+isFromVideo.m */; };
 		59EFCC7E1D0A711E00A11C7B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 59EFCC7D1D0A711E00A11C7B /* main.m */; };
 		59EFCC811D0A711E00A11C7B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 59EFCC801D0A711E00A11C7B /* AppDelegate.m */; };
 		59EFCC8A1D0A711E00A11C7B /* CamersAndGalaryStudy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 59EFCC881D0A711E00A11C7B /* CamersAndGalaryStudy.xcdatamodeld */; };
@@ -31,6 +34,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5953A7B41D0FEF81003AAA02 /* GalleryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryCollectionViewCell.h; sourceTree = "<group>"; };
+		5953A7B51D0FEF81003AAA02 /* GalleryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryCollectionViewCell.m; sourceTree = "<group>"; };
+		5953A7B61D0FEF81003AAA02 /* GalleryCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryCollectionViewCell.xib; sourceTree = "<group>"; };
+		5953A7BC1D0FF87C003AAA02 /* UIImage+isFromVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+isFromVideo.h"; sourceTree = "<group>"; };
+		5953A7BD1D0FF87C003AAA02 /* UIImage+isFromVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+isFromVideo.m"; sourceTree = "<group>"; };
 		59EFCC791D0A711D00A11C7B /* CamersAndGalaryStudy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CamersAndGalaryStudy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59EFCC7D1D0A711E00A11C7B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		59EFCC7F1D0A711E00A11C7B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -105,6 +113,11 @@
 				59EFCCA41D0A71CE00A11C7B /* MainViewController.h */,
 				59EFCCA51D0A71CE00A11C7B /* MainViewController.m */,
 				59EFCCA61D0A71CE00A11C7B /* MainViewController.xib */,
+				5953A7B41D0FEF81003AAA02 /* GalleryCollectionViewCell.h */,
+				5953A7B51D0FEF81003AAA02 /* GalleryCollectionViewCell.m */,
+				5953A7B61D0FEF81003AAA02 /* GalleryCollectionViewCell.xib */,
+				5953A7BC1D0FF87C003AAA02 /* UIImage+isFromVideo.h */,
+				5953A7BD1D0FF87C003AAA02 /* UIImage+isFromVideo.m */,
 			);
 			path = CamersAndGalaryStudy;
 			sourceTree = "<group>";
@@ -209,6 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				59EFCC8F1D0A711E00A11C7B /* LaunchScreen.storyboard in Resources */,
+				5953A7B81D0FEF81003AAA02 /* GalleryCollectionViewCell.xib in Resources */,
 				59EFCC8C1D0A711E00A11C7B /* Assets.xcassets in Resources */,
 				59EFCCA81D0A71CE00A11C7B /* MainViewController.xib in Resources */,
 			);
@@ -228,10 +242,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5953A7B71D0FEF81003AAA02 /* GalleryCollectionViewCell.m in Sources */,
 				59EFCC8A1D0A711E00A11C7B /* CamersAndGalaryStudy.xcdatamodeld in Sources */,
 				59EFCC811D0A711E00A11C7B /* AppDelegate.m in Sources */,
 				59EFCCA71D0A71CE00A11C7B /* MainViewController.m in Sources */,
 				59EFCC7E1D0A711E00A11C7B /* main.m in Sources */,
+				5953A7BE1D0FF87C003AAA02 /* UIImage+isFromVideo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +430,7 @@
 				59EFCCA01D0A711E00A11C7B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		59EFCCA11D0A711E00A11C7B /* Build configuration list for PBXNativeTarget "CamersAndGalaryStudyTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +439,7 @@
 				59EFCCA31D0A711E00A11C7B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
