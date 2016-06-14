@@ -13,10 +13,10 @@
 	UIImagePickerController *ipc;
 }
 
-@property (strong, nonatomic) IBOutlet UIButton *addPhotoBtn;
-@property (strong, nonatomic) IBOutlet UIButton *addVireoBtn;
+- (IBAction)addToGallery:(id)sender;
 
-@property (strong, nonatomic) IBOutlet UIImageView *imgView;
+@property (strong, nonatomic) IBOutlet UIButton *addPhotoBtn;
+@property (strong, nonatomic) IBOutlet UIButton *addVideoBtn;
 
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 

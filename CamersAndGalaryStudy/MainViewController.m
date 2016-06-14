@@ -39,49 +39,31 @@ static NSString * const reuseIdentifier = @"Cell";
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)addPhotoBtn:(id)sender {
+- (IBAction)addToGallery:(id)sender {
+
+	bool isVideo;
+	NSString *message;
+	if ([sender tag] == 11) {
+		message = @"You want add photo from ...";
+		isVideo = FALSE;
+	} else {
+		message = @"You want add video from ...";
+		isVideo = TRUE;
+	}
 
 	UIAlertController *alertController = [UIAlertController
 										  alertControllerWithTitle:@""
-										  message:@"You want add photo from ..."
-										  preferredStyle:UIAlertControllerStyleAlert];
-
-	UIAlertAction *fromCamera = [UIAlertAction actionWithTitle:@"camera"
-														  style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-															  [self addImgFromCmera];
-														  }]; // 1
-
-	UIAlertAction *fromGalery = [UIAlertAction actionWithTitle:@"galery"
-														  style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-															  [self addImgFromGalery];
-														  }]; // 2
-
-	UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
-														  style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-														  }]; // 3
-
-	[alertController addAction:fromCamera];
-	[alertController addAction:fromGalery];
-	[alertController addAction:cancel];
-
-	[self presentViewController:alertController animated:YES completion:nil];
-
-}
-
-- (IBAction)addVideoBtn:(id)sender {
-	UIAlertController *alertController = [UIAlertController
-										  alertControllerWithTitle:@""
-										  message:@"You want add video from ..."
+										  message:message
 										  preferredStyle:UIAlertControllerStyleAlert];
 
 	UIAlertAction *fromCamera = [UIAlertAction actionWithTitle:@"camera"
 														 style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-															 [self addVideoFromCamera];
+															 [self addFromCmera:isVideo];
 														 }]; // 1
 
 	UIAlertAction *fromGalery = [UIAlertAction actionWithTitle:@"galery"
 														 style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-															 [self addVideoFromGalery];
+															 [self addFromGalery:isVideo];
 														 }]; // 2
 
 	UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
@@ -95,8 +77,8 @@ static NSString * const reuseIdentifier = @"Cell";
 	[self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void) addImgFromCmera {
-	NSLog(@"Add from camera.");
+- (void) addFromCmera:(bool)isVideo{
+	NSLog(@"add from camera.");
 	ipc = [[UIImagePickerController alloc] init];
 	ipc.delegate = self;
 	if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
@@ -118,14 +100,24 @@ static NSString * const reuseIdentifier = @"Cell";
 
 		[self presentViewController:alertController animated:YES completion:nil];
 	  }
-
 }
 
-- (void) addImgFromGalery {
-	NSLog(@"Add photo from galery.");
+- (void) addFromGalery:(bool)isVideo {
+
 	ipc = [[UIImagePickerController alloc] init];
-	ipc.delegate = self;
 	ipc.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+	ipc.delegate = self;
+
+	NSArray *sourceTypes;
+
+	if (isVideo) {
+		ipc.mediaTypes = @[(NSString *)kUTTypeMovie];
+		sourceTypes = [UIImagePickerController availableMediaTypesForSourceType:ipc.sourceType];
+		if (![sourceTypes containsObject:(NSString *)kUTTypeMovie ]) {
+			NSLog(@"no video");
+			return;
+		}
+	}
 
 	ipc.modalPresentationStyle = UIModalPresentationPopover;
 	[self presentViewController:ipc animated:YES completion:nil];
@@ -134,60 +126,15 @@ static NSString * const reuseIdentifier = @"Cell";
 	popController.permittedArrowDirections = UIPopoverArrowDirectionAny;
 
 	popController.sourceView = self.view;
-	popController.sourceRect = self.addPhotoBtn.frame;
+
+	if (isVideo) {
+		popController.sourceRect = self.addVideoBtn.frame;
+	} else {
+		popController.sourceRect = self.addPhotoBtn.frame;
+	}
 
 	popController.delegate = self;
 
-}
-
-- (void) addVideoFromGalery {
-	NSLog(@"Add video from galery.");
-	ipc = [UIImagePickerController new];
-	ipc.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-	ipc.mediaTypes = @[(NSString *)kUTTypeMovie];
-	ipc.delegate = self;
-
-	NSArray *sourceTypes = [UIImagePickerController availableMediaTypesForSourceType:ipc.sourceType];
-	if (![sourceTypes containsObject:(NSString *)kUTTypeMovie ]) {
-		NSLog(@"no video");
-	} else {
-		ipc.modalPresentationStyle = UIModalPresentationPopover;
-		[self presentViewController:ipc animated:YES completion:nil];
-
-		UIPopoverPresentationController *popController = [ipc popoverPresentationController];
-		popController.permittedArrowDirections = UIPopoverArrowDirectionAny;
-
-		popController.sourceView = self.view;
-		popController.sourceRect = self.addVireoBtn.frame;
-
-		popController.delegate = self;
-	}
-
-}
-
--(void) addVideoFromCamera {
-	NSLog(@"add Video from camera.");
-	ipc = [[UIImagePickerController alloc] init];
-	ipc.delegate = self;
-	if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-	  {
-		ipc.sourceType = UIImagePickerControllerSourceTypeCamera;
-		[self presentViewController:ipc animated:YES completion:NULL];
-	  }
-	else
-	  {
-		UIAlertController *alertController = [UIAlertController
-											  alertControllerWithTitle:@""
-											  message:@"No camera available."
-											  preferredStyle:UIAlertControllerStyleAlert];
-
-		UIAlertAction *notAvaliable = [UIAlertAction actionWithTitle:@"Okay"
-															   style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-															   }]; // 1
-		[alertController addAction:notAvaliable];
-
-		[self presentViewController:alertController animated:YES completion:nil];
-	  }
 }
 
 #pragma mark - ImagePickerController Delegate
@@ -213,7 +160,6 @@ static NSString * const reuseIdentifier = @"Cell";
 		[self dismissViewControllerAnimated:YES completion:nil];
 	} else {
 		  [self dismissViewControllerAnimated:YES completion:nil];
-		  self.imgView.image = [info objectForKey:UIImagePickerControllerOriginalImage];
 
 		  UIImage *newImage = [info objectForKey:UIImagePickerControllerOriginalImage];
 		  [self.dataArray addObject:newImage];
@@ -277,5 +223,4 @@ static NSString * const reuseIdentifier = @"Cell";
 	return cell;
 
 }
-
 @end

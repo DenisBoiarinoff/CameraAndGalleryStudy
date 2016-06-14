@@ -8,8 +8,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
             <connections>
-                <outlet property="addPhotoBtn" destination="cvH-cT-45E" id="SnO-Jf-JDt"/>
-                <outlet property="addVireoBtn" destination="S7i-iv-Zk1" id="NE7-Du-WrN"/>
+                <outlet property="addPhotoBtn" destination="cvH-cT-45E" id="vfZ-aP-QJw"/>
+                <outlet property="addVideoBtn" destination="S7i-iv-Zk1" id="LVQ-lP-cHG"/>
                 <outlet property="collectionView" destination="Z2f-2F-8EC" id="Fa3-gL-FHo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -22,7 +22,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sNs-QS-Oqc">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cvH-cT-45E">
+                        <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cvH-cT-45E">
                             <rect key="frame" x="20" y="70" width="92" height="40"/>
                             <color key="backgroundColor" red="0.39811798750621052" green="0.67459753787878785" blue="0.27787941744802258" alpha="1" colorSpace="calibratedRGB"/>
                             <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
@@ -31,10 +31,10 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="layer.CornerRadius" value="20"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="addPhotoBtn:" destination="-1" eventType="touchUpInside" id="FSi-Ae-Ha5"/>
+                                <action selector="addToGallery:" destination="-1" eventType="touchUpInside" id="irc-rm-V6a"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7i-iv-Zk1">
+                        <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7i-iv-Zk1">
                             <rect key="frame" x="489" y="70" width="91" height="40"/>
                             <color key="backgroundColor" red="0.39811798750621052" green="0.67459753787878785" blue="0.27787941744802258" alpha="1" colorSpace="calibratedRGB"/>
                             <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
@@ -43,7 +43,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="layer.CornerRadius" value="20"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="addVideoBtn:" destination="-1" eventType="touchUpInside" id="Zk4-Km-dmL"/>
+                                <action selector="addToGallery:" destination="-1" eventType="touchUpInside" id="HTi-WN-Dqb"/>
                             </connections>
                         </button>
                     </subviews>
