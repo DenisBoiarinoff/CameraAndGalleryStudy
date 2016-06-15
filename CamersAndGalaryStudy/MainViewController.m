@@ -25,7 +25,6 @@
 
 @implementation MainViewController
 
-static NSString * const reuseIdentifier = @"Cell";
 static NSString * const playIconUrl = @"Play_Icon";
 static NSString * const collectionCellNibName = @"GalleryCollectionViewCell";
 
@@ -34,7 +33,6 @@ static NSString * const collectionCellNibName = @"GalleryCollectionViewCell";
 
 	self.dataArray = [[NSMutableArray alloc] init];
 
-//	[self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
 	[self.collectionView registerClass:[GalleryCollectionViewCell class] forCellWithReuseIdentifier:collectionCellNibName];
 
     // Do any additional setup after loading the view from its nib.
@@ -87,13 +85,11 @@ static NSString * const collectionCellNibName = @"GalleryCollectionViewCell";
 	NSLog(@"add from camera.");
 	ipc = [[UIImagePickerController alloc] init];
 	ipc.delegate = self;
-	if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-	  {
-		ipc.sourceType = UIImagePickerControllerSourceTypeCamera;
-		[self presentViewController:ipc animated:YES completion:NULL];
-	  }
-	else
-	  {
+
+	if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])	{
+	  ipc.sourceType = UIImagePickerControllerSourceTypeCamera;
+	  [self presentViewController:ipc animated:YES completion:NULL];
+	} else {
 		UIAlertController *alertController = [UIAlertController
 											  alertControllerWithTitle:@""
 											  message:@"No camera available."
@@ -105,7 +101,7 @@ static NSString * const collectionCellNibName = @"GalleryCollectionViewCell";
 		[alertController addAction:notAvaliable];
 
 		[self presentViewController:alertController animated:YES completion:nil];
-	  }
+	}
 }
 
 - (void) addFromGalery:(bool)isVideo {
@@ -143,37 +139,35 @@ static NSString * const collectionCellNibName = @"GalleryCollectionViewCell";
 
 }
 
--(UIImage *)drawBadgeOnImage:(UIImage*)videoImage
-{
-	UIImage *badge =  [UIImage imageNamed:playIconUrl];
-
-	UIGraphicsBeginImageContextWithOptions(videoImage.size, NO, 0.0f);
-	[videoImage drawInRect:CGRectMake(0, 0, videoImage.size.width, videoImage.size.height)];
-	[badge drawInRect:CGRectMake((videoImage.size.width - badge.size.width * 2)/2,
-								 (videoImage.size.height - badge.size.height * 2)/2,
-								 badge.size.width * 2,
-								 badge.size.height * 2)];
-	UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
-	UIGraphicsEndImageContext();
-	return resultImage;
-}
+//-(UIImage *)drawBadgeOnImage:(UIImage*)videoImage
+//{
+//	UIImage *badge =  [UIImage imageNamed:playIconUrl];
+//
+//	UIGraphicsBeginImageContextWithOptions(videoImage.size, NO, 0.0f);
+//	[videoImage drawInRect:CGRectMake(0, 0, videoImage.size.width, videoImage.size.height)];
+//	[badge drawInRect:CGRectMake((videoImage.size.width - badge.size.width * 2)/2,
+//								 (videoImage.size.height - badge.size.height * 2)/2,
+//								 badge.size.width * 2,
+//								 badge.size.height * 2)];
+//	UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
+//	UIGraphicsEndImageContext();
+//	return resultImage;
+//}
 
 #pragma mark - ImagePickerController Delegate
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-
+	NSLog(@"imagePickerController");
 	NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
 	if ([type isEqualToString:(NSString *)kUTTypeVideo]
 		|| [type isEqualToString:(NSString *)kUTTypeMovie]) {
-		NSURL *urlvideo = [info objectForKey:UIImagePickerControllerMediaURL];
-//		NSLog(@"%@",urlvideo);
 
-//		NSData *data = [NSData dataWithContentsOfURL:urlvideo];
-//		AVAudioPlayer* theAudio = [[AVAudioPlayer alloc] initWithData:data error: nil];
+		NSURL *urlvideo = [info objectForKey:UIImagePickerControllerMediaURL];
 
 		AVAsset *asset = [AVAsset assetWithURL:urlvideo];
 		AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc]initWithAsset:asset];
+		imageGenerator.appliesPreferredTrackTransform = true;
 		CMTime time = CMTimeMake(1, 1);
 
 		CGImageRef imageRef = [imageGenerator copyCGImageAtTime:time actualTime:NULL error:NULL];
@@ -193,7 +187,6 @@ static NSString * const collectionCellNibName = @"GalleryCollectionViewCell";
 
 		[self.dataArray addObject:newImage];
 
-//		  NSLog(@"%ld", [self.dataArray count]);
 		[self.collectionView reloadData];
 
 	}
@@ -251,13 +244,11 @@ static NSString * const collectionCellNibName = @"GalleryCollectionViewCell";
 	UIImage *img = [self.dataArray objectAtIndex:indexPath.row];
 	[cell setBackgroundView:[[UIImageView alloc] initWithImage:[self.dataArray objectAtIndex:indexPath.row]]];
 //	[cell.badge setImage:[UIImage imageNamed:playIconUrl]];
-//	NSLog(@"Source: %@", img.source);
 	if (![img.source isEqualToString:@"video"]) {
 		[cell.badge setHidden:YES];
 	} else {
 		[cell.badge setHidden:NO];
 	}
-//	NSLog(@" %@",[cell class]);
 
 	// Return the cell
 	return cell;
